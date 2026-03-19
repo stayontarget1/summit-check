@@ -23,7 +23,13 @@ export default function SearchBar({ onSelect, compact }) {
       setIsOpen(false);
       return;
     }
-    const matches = peaks.filter((p) => fuzzyMatch(q, p)).slice(0, 8);
+    const matches = peaks
+      .filter((p) => fuzzyMatch(q, p))
+      .sort((a, b) => {
+        if (a.type !== b.type) return a.type === 'peak' ? -1 : 1;
+        return b.elevation_ft - a.elevation_ft;
+      })
+      .slice(0, 8);
     setResults(matches);
     setIsOpen(matches.length > 0);
     setActiveIndex(-1);
@@ -121,7 +127,12 @@ export default function SearchBar({ onSelect, compact }) {
               `}
             >
               <div className="flex flex-col">
-                <span className="text-sm text-white/90 font-medium">{peak.name}</span>
+                <span className="text-sm text-white/90 font-medium flex items-center gap-1.5">
+                  {peak.type === 'trailhead' && (
+                    <span className="text-[9px] font-mono-data font-bold px-1 py-0.5 rounded bg-cyan-400/10 text-cyan-400/60 leading-none">TH</span>
+                  )}
+                  {peak.name}
+                </span>
                 <span className="text-[11px] text-gray-500">{peak.state}</span>
               </div>
               <span className="text-xs text-cyan-400/60 font-mono-data tabular-nums">

@@ -103,21 +103,19 @@ export default function App() {
             </button>
           </div>
         ) : peak ? (
-          <>
-            <div className="mb-2">
+          <div className="flex-1 flex flex-col items-center justify-center animate-fade-in">
+            <div className="w-full">
+              <ConditionsCard
+                peak={peak}
+                weather={weather}
+                summary={summary}
+                isLoading={isLoading}
+              />
+            </div>
+            <div className="w-full mt-3">
               <SearchBar onSelect={handleSelect} compact />
             </div>
-            <div className="flex-1 min-h-0 flex items-center animate-fade-in">
-              <div className="w-full">
-                <ConditionsCard
-                  peak={peak}
-                  weather={weather}
-                  summary={summary}
-                  isLoading={isLoading}
-                />
-              </div>
-            </div>
-          </>
+          </div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center">
             <h1 className="font-mono-data text-3xl font-bold tracking-wider text-white/90 mb-6">
@@ -126,8 +124,8 @@ export default function App() {
             <div className="w-full">
               <SearchBar onSelect={handleSelect} compact={false} />
             </div>
-            <p className="text-[13px] text-gray-500 mt-4 lowercase tracking-wide">
-              real-time summit intel for the trail obsessed.
+            <p className="text-[13px] text-gray-500 mt-4 lowercase tracking-wide font-mono-data">
+              your family can wait. the weather can't.
             </p>
             <EmptyState />
           </div>

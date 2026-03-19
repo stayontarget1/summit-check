@@ -91,7 +91,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 10;
+  z-index: 1;
   pointer-events: none;
   background: repeating-linear-gradient(
     0deg,
@@ -107,7 +107,7 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 10;
+  z-index: 1;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(34, 211, 238, 0.012) 1px, transparent 1px),

@@ -51,8 +51,11 @@ export async function fetchAISummary(peakName, elevation, weatherData) {
   const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
 
   if (!apiKey) {
+    console.warn('[Summit Check] No VITE_ANTHROPIC_API_KEY set — using fallback summary');
     return generateFallbackSummary(weatherData);
   }
+
+  console.log('[Summit Check] Fetching AI summary for', peakName);
 
   const userMessage = formatWeatherForPrompt(peakName, elevation, weatherData);
   const controller = new AbortController();
@@ -97,6 +100,7 @@ export async function fetchAISummary(peakName, elevation, weatherData) {
     return text.trim();
   } catch (err) {
     clearTimeout(timeoutId);
+    console.error('[Summit Check] AI summary failed:', err.message || err);
     return generateFallbackSummary(weatherData);
   }
 }

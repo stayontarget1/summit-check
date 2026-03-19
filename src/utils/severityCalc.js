@@ -1,7 +1,6 @@
 /**
  * Returns a Tailwind text color class based on severity.
- * @param {string} type - "temp", "wind", "precip", "humidity", "uv", "visibility"
- * @param {number} value - The weather value
+ * HUD palette: cyan/teal = nominal, amber = caution, red = danger, ice-blue = cold
  */
 export function getSeverityColor(type, value) {
   const v = Number(value);
@@ -12,39 +11,39 @@ export function getSeverityColor(type, value) {
       if (v <= 25) return 'text-blue-300';
       if (v <= 32) return 'text-cyan-300';
       if (v <= 50) return 'text-gray-200';
-      if (v <= 70) return 'text-green-300';
-      if (v <= 85) return 'text-yellow-300';
-      if (v <= 95) return 'text-orange-300';
+      if (v <= 70) return 'text-emerald-400';
+      if (v <= 85) return 'text-amber-400';
+      if (v <= 95) return 'text-orange-400';
       return 'text-red-400';
     }
     case 'wind': {
-      if (v <= 10) return 'text-green-300';
-      if (v <= 25) return 'text-yellow-300';
-      if (v <= 40) return 'text-orange-300';
+      if (v <= 10) return 'text-emerald-400';
+      if (v <= 25) return 'text-amber-400';
+      if (v <= 40) return 'text-orange-400';
       return 'text-red-400';
     }
     case 'precip': {
-      if (v <= 10) return 'text-green-300';
-      if (v <= 40) return 'text-yellow-300';
-      if (v <= 70) return 'text-orange-300';
+      if (v <= 10) return 'text-emerald-400';
+      if (v <= 40) return 'text-amber-400';
+      if (v <= 70) return 'text-orange-400';
       return 'text-red-400';
     }
     case 'humidity': {
-      if (v <= 40) return 'text-green-300';
-      if (v <= 65) return 'text-yellow-300';
-      if (v <= 80) return 'text-orange-300';
+      if (v <= 40) return 'text-emerald-400';
+      if (v <= 65) return 'text-amber-400';
+      if (v <= 80) return 'text-orange-400';
       return 'text-red-400';
     }
     case 'uv': {
-      if (v <= 2) return 'text-green-300';
-      if (v <= 5) return 'text-yellow-300';
-      if (v <= 7) return 'text-orange-300';
+      if (v <= 2) return 'text-emerald-400';
+      if (v <= 5) return 'text-amber-400';
+      if (v <= 7) return 'text-orange-400';
       return 'text-red-400';
     }
     case 'visibility': {
-      if (v >= 10) return 'text-green-300';
-      if (v >= 5) return 'text-yellow-300';
-      if (v >= 2) return 'text-orange-300';
+      if (v >= 10) return 'text-emerald-400';
+      if (v >= 5) return 'text-amber-400';
+      if (v >= 2) return 'text-orange-400';
       return 'text-red-400';
     }
     default:
@@ -86,10 +85,10 @@ export function getOverallSeverity(hourlySlice) {
  */
 export function severityBgClass(level) {
   switch (level) {
-    case 0: return 'bg-green-500/10';
-    case 1: return 'bg-yellow-500/10';
-    case 2: return 'bg-orange-500/10';
-    case 3: return 'bg-red-500/10';
+    case 0: return 'bg-emerald-500/8';
+    case 1: return 'bg-amber-500/8';
+    case 2: return 'bg-orange-500/8';
+    case 3: return 'bg-red-500/8';
     default: return 'bg-white/5';
   }
 }

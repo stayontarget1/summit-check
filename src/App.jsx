@@ -24,9 +24,7 @@ export default function App() {
     try {
       const data = await fetchWeather(selectedPeak.latitude, selectedPeak.longitude);
 
-      // Map weatherApi output to the shape components expect
       const current = data.current;
-      // Format sunrise/sunset ISO strings to readable time
       const formatTime = (iso) => {
         if (!iso) return '';
         const d = new Date(iso);
@@ -59,12 +57,9 @@ export default function App() {
         })),
       };
 
-      // Compute gear badges (gearLogic expects raw weatherApi format)
       mappedWeather._badges = getGearBadges(data);
-
       setWeather(mappedWeather);
 
-      // Fetch AI summary (non-blocking for the card render)
       fetchAISummary(selectedPeak.name, selectedPeak.elevation_ft, data)
         .then((text) => setSummary(text))
         .catch(() => setSummary('Conditions loaded. Check the data below for details.'));
@@ -96,34 +91,46 @@ export default function App() {
         isNight={isNight}
       />
 
-      <div className="flex flex-col h-[100svh] px-4 py-3">
-        {/* Search bar */}
-        <div className={peak ? 'mb-2' : 'flex-1 flex items-center'}>
-          <SearchBar onSelect={handleSelect} compact={!!peak} />
-        </div>
-
-        {/* Content area */}
+      <div className="relative z-10 flex flex-col h-[100svh] px-4 py-3">
         {error ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <p className="text-red-400 text-sm mb-3">{error}</p>
+            <p className="text-red-400 text-sm mb-3 font-mono-data">{error}</p>
             <button
               onClick={() => peak && handleSelect(peak)}
-              className="text-sm text-sky-400 hover:text-sky-300 underline"
+              className="text-sm text-cyan-400 hover:text-cyan-300 underline"
             >
               Retry
             </button>
           </div>
         ) : peak ? (
-          <div className="flex-1 min-h-0 animate-fade-in">
-            <ConditionsCard
-              peak={peak}
-              weather={weather}
-              summary={summary}
-              isLoading={isLoading}
-            />
-          </div>
+          <>
+            <div className="mb-2">
+              <SearchBar onSelect={handleSelect} compact />
+            </div>
+            <div className="flex-1 min-h-0 flex items-center animate-fade-in">
+              <div className="w-full">
+                <ConditionsCard
+                  peak={peak}
+                  weather={weather}
+                  summary={summary}
+                  isLoading={isLoading}
+                />
+              </div>
+            </div>
+          </>
         ) : (
-          <EmptyState />
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <h1 className="font-mono-data text-3xl font-bold tracking-wider text-white/90 mb-6">
+              Summit Check
+            </h1>
+            <div className="w-full">
+              <SearchBar onSelect={handleSelect} compact={false} />
+            </div>
+            <p className="text-[13px] text-gray-500 mt-4 lowercase tracking-wide">
+              real-time summit intel for the trail obsessed.
+            </p>
+            <EmptyState />
+          </div>
         )}
       </div>
     </>

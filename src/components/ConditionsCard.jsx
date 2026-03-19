@@ -4,7 +4,7 @@ import ConditionsGrid from './ConditionsGrid';
 import HourlyOutlook from './HourlyOutlook';
 
 function SkeletonBlock({ className }) {
-  return <div className={`rounded bg-white/[0.06] animate-pulse ${className}`} />;
+  return <div className={`skeleton ${className}`} />;
 }
 
 function Skeleton() {
@@ -39,7 +39,7 @@ function Skeleton() {
 
 export default function ConditionsCard({ peak, weather, summary, isLoading }) {
   return (
-    <div className="bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.06] animate-[fadeIn_0.4s_ease-out]">
+    <div className="glass-card rounded-2xl animate-[fadeIn_0.35s_ease-out]">
       {isLoading ? (
         <Skeleton />
       ) : (
@@ -50,14 +50,14 @@ export default function ConditionsCard({ peak, weather, summary, isLoading }) {
               <h2 className="text-lg font-semibold text-white/95 leading-tight">
                 {peak.name}
               </h2>
-              <div className="flex items-center gap-2 text-[12px] text-gray-400 mt-0.5">
+              <div className="flex items-center gap-2 text-[12px] text-gray-500 mt-0.5 font-mono-data">
                 <span>{peak.elevation_ft?.toLocaleString()} ft</span>
                 {weather?.sunrise && (
                   <>
-                    <span className="text-white/10">|</span>
-                    <span>{'\u2600\uFE0F'} {weather.sunrise}</span>
-                    <span className="text-white/10">|</span>
-                    <span>{'\u{1F319}'} {weather.sunset}</span>
+                    <span className="text-cyan-400/20">|</span>
+                    <span>{weather.sunrise}</span>
+                    <span className="text-cyan-400/20">|</span>
+                    <span>{weather.sunset}</span>
                   </>
                 )}
               </div>

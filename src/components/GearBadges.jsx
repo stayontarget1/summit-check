@@ -1,10 +1,10 @@
 const colorMap = {
-  blue: 'bg-blue-500/20 text-blue-300',
-  red: 'bg-red-500/20 text-red-300',
-  orange: 'bg-orange-500/20 text-orange-300',
-  yellow: 'bg-yellow-500/20 text-yellow-300',
-  purple: 'bg-purple-500/20 text-purple-300',
-  gray: 'bg-gray-500/20 text-gray-300',
+  blue: 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/20',
+  red: 'bg-red-500/15 text-red-300 border border-red-500/20',
+  orange: 'bg-orange-500/15 text-orange-300 border border-orange-500/20',
+  yellow: 'bg-amber-500/15 text-amber-300 border border-amber-500/20',
+  purple: 'bg-purple-500/15 text-purple-300 border border-purple-500/20',
+  gray: 'bg-gray-500/15 text-gray-300 border border-gray-500/20',
 };
 
 export default function GearBadges({ badges }) {
@@ -15,7 +15,7 @@ export default function GearBadges({ badges }) {
       {badges.map((badge, i) => (
         <span
           key={`${badge.label}-${i}`}
-          className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${colorMap[badge.color] || colorMap.gray}`}
+          className={`rounded-full px-2.5 py-0.5 text-[11px] font-mono-data font-bold ${colorMap[badge.color] || colorMap.gray}`}
         >
           {badge.label}
         </span>

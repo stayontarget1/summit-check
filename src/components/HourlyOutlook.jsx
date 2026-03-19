@@ -30,6 +30,13 @@ function getDominantIcon(slice) {
   return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
 }
 
+const SEVERITY_BORDER = {
+  0: 'border-t-emerald-500/40',
+  1: 'border-t-amber-500/40',
+  2: 'border-t-orange-500/40',
+  3: 'border-t-red-500/40',
+};
+
 export default function HourlyOutlook({ hourly }) {
   if (!hourly || hourly.length === 0) return null;
 
@@ -51,15 +58,15 @@ export default function HourlyOutlook({ hourly }) {
         return (
           <div
             key={label}
-            className={`flex flex-col items-center rounded-lg px-1 py-1.5 ${severityBgClass(severity)}`}
+            className={`flex flex-col items-center rounded-lg px-1 py-1.5 border-t-2 ${SEVERITY_BORDER[severity] || ''} ${severityBgClass(severity)}`}
           >
-            <span className="text-[11px] text-gray-400 font-medium">{label}</span>
+            <span className="text-[11px] text-gray-500 font-medium">{label}</span>
             <span className="text-base leading-none mt-0.5">{icon}</span>
-            <span className="text-xs font-semibold text-white/90 mt-0.5">
-              {hi}°/{lo}°
+            <span className="text-xs font-mono-data font-bold text-white/90 mt-0.5">
+              {hi}/{lo}
             </span>
-            <span className="text-[11px] text-gray-400">
-              {windLo}-{windHi} mph
+            <span className="text-[11px] text-gray-500 font-mono-data">
+              {windLo}-{windHi}
             </span>
           </div>
         );

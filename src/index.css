@@ -1,57 +1,68 @@
 @import "tailwindcss";
 
-/* ── Skeleton shimmer ── */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* ── Scan-line skeleton shimmer ── */
+@keyframes scanShimmer {
+  0% { background-position: 0 -100%; }
+  100% { background-position: 0 200%; }
 }
 
 .skeleton {
   background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.03) 25%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.03) 75%
+    180deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(34, 211, 238, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 100%
   );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+  background-size: 100% 50%;
+  animation: scanShimmer 2s ease-in-out infinite;
   border-radius: 0.5rem;
 }
 
-/* ── Fade-in for cards ── */
+/* ── Card fade-in — system coming online ── */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: scale(0.98) translateY(6px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.35s ease-out forwards;
 }
 
-/* ── Storm flash pulse ── */
-@keyframes stormFlash {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.03; }
+/* ── Mountain silhouette glow pulse ── */
+@keyframes mountainGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0)) brightness(1); }
+  50% { filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.15)) brightness(1.1); }
 }
 
-/* ── Heat shimmer ── */
-@keyframes heatShimmer {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+.mountain-glow {
+  animation: mountainGlow 4s ease-in-out infinite;
 }
 
-/* ── Frosted glass card ── */
+/* ── HUD glass card ── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(13, 17, 23, 0.65);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.08);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ── HUD grid cell ── */
+.hud-cell {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(34, 211, 238, 0.06);
+  border-radius: 0.5rem;
+}
+
+/* ── Monospace data font ── */
+@utility font-mono-data {
+  font-family: 'Space Mono', 'Fira Code', 'JetBrains Mono', monospace;
 }
 
 /* ── Global styles ── */
@@ -75,6 +86,35 @@ body {
   overflow: hidden;
 }
 
+/* ── Faint scanline overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.015) 2px,
+    rgba(255, 255, 255, 0.015) 4px
+  );
+}
+
+/* ── Faint grid overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.012) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 #root {
   width: 100%;
   max-width: 420px;
@@ -83,7 +123,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 /* ── Hide scrollbar globally ── */
@@ -96,14 +136,14 @@ body {
   -ms-overflow-style: none;
 }
 
-/* ── Input focus ring ── */
+/* ── Input focus ring — cyan HUD ── */
 input:focus,
 select:focus,
 textarea:focus,
 button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4);
-  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.3);
+  border-color: rgba(34, 211, 238, 0.4);
 }
 
 /* ── Smooth transitions on interactive elements ── */

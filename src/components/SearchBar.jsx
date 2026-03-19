@@ -73,7 +73,7 @@ export default function SearchBar({ onSelect, compact }) {
       <div
         className={`
           flex items-center rounded-full transition-all duration-300
-          bg-white/[0.07] backdrop-blur-md border border-white/[0.08]
+          bg-white/[0.05] backdrop-blur-md border border-cyan-400/[0.08]
           ${compact
             ? 'px-3 py-1.5'
             : 'px-5 py-3'
@@ -81,7 +81,7 @@ export default function SearchBar({ onSelect, compact }) {
         `}
       >
         <svg
-          className={`shrink-0 text-gray-400 ${compact ? 'w-4 h-4 mr-2' : 'w-5 h-5 mr-3'}`}
+          className={`shrink-0 text-cyan-400/50 ${compact ? 'w-4 h-4 mr-2' : 'w-5 h-5 mr-3'}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -100,16 +100,16 @@ export default function SearchBar({ onSelect, compact }) {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.trim() && results.length > 0 && setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="Search a peak..."
+          placeholder={compact ? "Search another peak..." : "Search a peak..."}
           className={`
-            w-full bg-transparent outline-none placeholder-gray-500 text-white/90
+            w-full bg-transparent outline-none placeholder-gray-600 text-white/90
             ${compact ? 'text-sm' : 'text-lg'}
           `}
         />
       </div>
 
       {isOpen && (
-        <ul className="absolute z-50 mt-1.5 w-full rounded-xl bg-[#1a1b24]/95 backdrop-blur-xl border border-white/[0.08] overflow-hidden shadow-2xl">
+        <ul className="absolute z-50 mt-1.5 w-full rounded-xl bg-[#0d1117]/95 backdrop-blur-xl border border-cyan-400/[0.08] overflow-hidden shadow-2xl">
           {results.map((peak, i) => (
             <li
               key={`${peak.name}-${peak.latitude}`}
@@ -117,14 +117,14 @@ export default function SearchBar({ onSelect, compact }) {
               onMouseEnter={() => setActiveIndex(i)}
               className={`
                 flex items-center justify-between px-4 py-2.5 cursor-pointer transition-colors
-                ${i === activeIndex ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'}
+                ${i === activeIndex ? 'bg-cyan-400/[0.08]' : 'hover:bg-white/[0.04]'}
               `}
             >
               <div className="flex flex-col">
                 <span className="text-sm text-white/90 font-medium">{peak.name}</span>
                 <span className="text-[11px] text-gray-500">{peak.state}</span>
               </div>
-              <span className="text-xs text-gray-400 tabular-nums">
+              <span className="text-xs text-cyan-400/60 font-mono-data tabular-nums">
                 {peak.elevation_ft.toLocaleString()} ft
               </span>
             </li>

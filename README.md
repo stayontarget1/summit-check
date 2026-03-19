@@ -1,6 +1,6 @@
 # Summit Check
 
-A mobile-first mountain weather conditions app for hikers and mountaineers. Search for any US peak by name and get a single-screen Conditions Card with current summit weather, an AI-generated plain-english summary, gear advisories, and a compact 24-hour outlook — all designed to be glanced at before you head out the door.
+A mobile-first mountain weather conditions app for hikers, mountaineers, and dads. Search for any US peak by name and get a single-screen Conditions Card with current summit weather, an AI-generated plain-english summary, gear advisories, and a compact 24-hour outlook — all designed to be glanced at before you head out the door.
 
 ## Local Setup
 
